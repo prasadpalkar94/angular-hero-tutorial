@@ -124,5 +124,8 @@
       }
     }
   },
-  "defaultProject": "angular-hero"
+  "defaultProject": "angular-hero",
+  "cli": {
+    "analytics": "36afc52b-f68e-4a94-adfe-31b7085c34c4"
+  }
 }
