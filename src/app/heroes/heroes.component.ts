@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Hero } from '../hero';
-import { HEROES } from '../heroes-mock'; 
+// import { HEROES } from '../heroes-mock'; 
+import { HeroService } from '../service/hero.service';
+import { MessageServiceService } from '../messageService/message-service.service';
 
 @Component({
   selector: 'app-heroes',
@@ -8,11 +10,23 @@ import { HEROES } from '../heroes-mock';
   styleUrls: ['./heroes.component.css']
 })
 export class HeroesComponent implements OnInit {
-  heroes = HEROES;
+  // heroes = HEROES;
+  heroes : Hero[] | undefined;
+
+  // getHeroes() : void{
+  //   this.heroes= this.heroService.getHeroes()
+    
+  // }
+
+  getHeroes() : void{
+    this.heroService.getHeroes()
+    .subscribe(heroes => this.heroes = heroes);
+  }
 
   selectedHero:Hero | undefined;
 
   onSelect(hero:Hero): void{
+    this.messageService.add('hero is been selected.');
     this.selectedHero = hero;
   }
 
@@ -21,9 +35,10 @@ export class HeroesComponent implements OnInit {
     name:'Windstorm'
   };
 
-  constructor() { }
+  constructor(private heroService: HeroService, private messageService:MessageServiceService) { }
 
   ngOnInit(): void {
+    this.getHeroes();
   }
 
   title = 'In hero app';
